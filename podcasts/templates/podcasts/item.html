@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ item.title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap.min.css"/>
+  </head>
+  <body class="container">
+    <div class="container-fluid" style="margin-top: 30px">
+      <div class="row-fluid">
+        <p>
+          <a href="{{ root_url }}{{ podcast.slug }}">
+            {{ podcast.title }}
+          </a>
+        </p>
+        <h1>{{ item.title }}</h1>
+        <p>{{ item.description }}</p>
+        <audio src="{{ root_url }}media/{{ item.enclosure }}" controls />
+      </div>
+    </div>
+  </body>
+</html>

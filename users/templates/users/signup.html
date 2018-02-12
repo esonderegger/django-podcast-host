@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="robots" content="NONE,NOARCHIVE" />
+  <title>Django Podcast Host</title>
+  <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap-tweaks.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/prettify.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/default.css"/>
+</head>
+<body class="container">
+  <div class="container-fluid" style="margin-top: 30px">
+    <div class="row-fluid">
+      <div class="well" style="width: 320px; margin-left: auto; margin-right: auto">
+        <div class="row-fluid">
+          {% block content %}
+            <h2>Sign up</h2>
+            <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button class="btn btn-primary form-control" type="submit">Sign up</button>
+            </form>
+          {% endblock %}
+        </div>
+      </div><
+    </div>
+  </div>
+</body>
+</html>

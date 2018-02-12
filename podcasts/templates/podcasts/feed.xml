@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss
+  version="2.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+>
+  <channel>
+    <title>{{ podcast.title }}</title>
+    <link>{{ root_url }}{{ podcast.slug }}</link>
+    {% if podcast.language %}<language>{{ podcast.language }}</language>{% endif %}
+    {% if podcast.copyright %}<copyright>{{ podcast.copyright }}</copyright>{% endif %}
+    {% if podcast.subtitle %}<itunes:subtitle>{{ podcast.subtitle }}</itunes:subtitle>{% endif %}
+    {% if podcast.author %}<itunes:author>{{ podcast.author }}</itunes:author>{% endif %}
+    {% if podcast.description %}<itunes:summary>{{ podcast.description }}</itunes:summary>{% endif %}
+    {% if podcast.description %}<description>{{ podcast.description }}</description>{% endif %}
+    {% if podcast.itunes_type %}<itunes:type>{{ podcast.itunes_type }}</itunes:type>{% endif %}
+    {% if podcast.author and podcast.email %}
+    <itunes:owner>
+      <itunes:name>{{ podcast.author }}</itunes:name>
+      <itunes:email>{{ podcast.email }}</itunes:email>
+    </itunes:owner>
+    {% endif %}
+    {% if podcast.image %}
+    <itunes:image href="{{ root_url }}media/{{ podcast.image }}" />
+    {% endif %}
+    {% for category in categories %}
+    {% if category.parent_name %}
+    <itunes:category text="{{ category.parent_name }}">
+      <itunes:category text="{{ category.name }}"/>
+    </itunes:category>
+    {% else %}
+    <itunes:category text="{{ category.name }}" />
+    {% endif %}
+    {% endfor %}
+    <itunes:explicit>{% if podcast.explicit %}yes{% else %}no{% endif %}</itunes:explicit>
+    {% for item in items %}
+    <item>
+      <itunes:episodeType>{{ item.episode_type }}</itunes:episodeType>
+      <itunes:title>{{ item.title }}</itunes:title>
+      <itunes:episode>{{ item.episode }}</itunes:episode>
+      <itunes:season>{{ item.season }}</itunes:season>
+      <title>{{ item.title }}</title>
+      <itunes:author>{{ item.author }}</itunes:author>
+      <itunes:subtitle>{{ item.subtitle }}</itunes:subtitle>
+      <itunes:summary>{{ item.description }}</itunes:summary>
+      <description>{{ item.description }}</description>
+      <content:encoded>{{ item.description }}</content:encoded>
+      <enclosure
+        length="{{ item.file_size }}"
+        type="{{ item.media_type }}"
+        url="{{ root_url }}media/{{ item.enclosure }}"
+      />
+      <guid>{{ item.guid }}</guid>
+      <pubDate>{{ item.pub_date }}</pubDate>
+      <itunes:duration>{{ item.duration }}</itunes:duration>
+      <itunes:explicit>{% if item.explicit %}yes{% else %}no{% endif %}</itunes:explicit>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

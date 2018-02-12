@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Podcast"
+      href="{{ root_url }}{{ podcast.slug }}/feed.xml"
+    />
+    <meta charset="utf-8">
+    <title>{{ podcast.title }}</title>
+    <link rel="stylesheet" type="text/css" href="/static/rest_framework/css/bootstrap.min.css"/>
+  </head>
+  <body class="container">
+    <div class="container-fluid" style="margin-top: 30px">
+      <div class="row-fluid">
+        <h1>{{ podcast.title }}</h1>
+        <p>{{ podcast.description }}</p>
+        <ul>
+          {% for item in items %}
+          <li>
+            <a href="{{ root_url }}{{ podcast.slug }}/{{ item.slug }}">
+              {{ item.title }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
