@@ -3,11 +3,14 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 import uuid
 
+
 def podcast_path(instance, filename):
     return '{0}/{1}'.format(instance.slug, filename)
 
+
 def item_path(instance, filename):
     return '{0}/{1}'.format(instance.podcast.slug, filename)
+
 
 class Podcast(models.Model):
     owner = models.ForeignKey(User, related_name='podcasts', on_delete=models.CASCADE)
@@ -67,6 +70,7 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Category(models.Model):
     podcast = models.ForeignKey(Podcast, related_name='categories', on_delete=models.CASCADE)

@@ -3,6 +3,7 @@ from podcasts.serializers import PodcastSerializer, ItemSerializer, CategorySeri
 from rest_framework import generics, permissions
 from django.shortcuts import render
 
+
 def all_data(request):
     podcasts = Podcast.objects.all().order_by('-last_build_date')
     if request.is_secure():
