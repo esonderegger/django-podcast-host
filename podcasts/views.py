@@ -4,7 +4,7 @@ from rest_framework import generics, permissions
 from django.shortcuts import render
 
 def all_data(request):
-    podcasts = Podcast.objects.all()
+    podcasts = Podcast.objects.all().order_by('-last_build_date')
     if request.is_secure():
         root_url = 'https://'
     else:
@@ -20,7 +20,7 @@ def all_data(request):
 def podcast_data(request, slug):
     the_podcast = Podcast.objects.get(slug=slug)
     the_categories = Category.objects.filter(podcast_id=the_podcast.id)
-    the_items = Item.objects.filter(podcast_id=the_podcast.id)
+    the_items = Item.objects.filter(podcast_id=the_podcast.id).order_by('-pub_date')
     if request.is_secure():
         root_url = 'https://'
     else:
@@ -69,7 +69,6 @@ def itempage(request, slug, item_slug):
 
 class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        print(obj, request.user)
         if type(obj) is Podcast:
             return obj.owner == request.user
         return obj.podcast.owner == request.user
@@ -82,7 +81,7 @@ class PodcastList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         if self.request.user.id:
-            return Podcast.objects.filter(owner=self.request.user)
+            return Podcast.objects.filter(owner=self.request.user).order_by('-last_build_date')
         return []
 
     def perform_create(self, serializer):
@@ -105,12 +104,10 @@ class ItemList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         the_podcast = Podcast.objects.get(slug=self.kwargs['slug'])
-        print(the_podcast)
-        return Item.objects.filter(podcast_id=the_podcast.id)
+        return Item.objects.filter(podcast_id=the_podcast.id).order_by('-pub_date')
 
     def perform_create(self, serializer):
         the_podcast = Podcast.objects.get(slug=self.kwargs['slug'])
-        print(the_podcast)
         serializer.save(podcast_id=the_podcast.id)
 
 
