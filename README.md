@@ -56,6 +56,8 @@ Now, you should be able to go to `http://localhost:8000/` and see your new podca
 - Limit categories to only the ones allowed by iTunes. Ideally this category list would live in a database that is only editable by an admin user. This could require getting a many to many relationship to work. It might also be possible to do this with a `MultipleChoiceField`.
 - use ffprobe to get duration and type information from uploaded enclosures
 - use ffmpeg to re-encode uploaded media according to recommended specifications. Both this and using ffprobe would require having non-python dependencies and would also need to work asynchronously after the uploaded file has been saved.
-- make better front-ends for evrything
+- make better front-ends for everything
 - improve the sign-up/login flow
 - improve error handling for unauthenticated podcast creation
+- use Django forms to create front-end for creating/editing podcasts
+- write tests
